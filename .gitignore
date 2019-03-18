@@ -1,3 +1,7 @@
 ## Exclude DS_Store
 .DS_Store
 */.DS_Store
+
+## Exclude .ipynb_checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints
