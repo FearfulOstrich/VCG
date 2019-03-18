@@ -11,7 +11,7 @@ Subfolders usually contain *formatting* python files to pre-process the data.
 Features the different relevant literature that I have based myself on, from algorithms to related works.
 
 ## Kavosh
-Contains the source code as found @[S> Mohammadi github](https://github.com/shmohammadi86/Kavosh). This is an exact motif counting algorithm as seen in this [paper](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-318). In addition, it contains a wrapper.py file containing the commands to execute the algorithm and finally show the discovered motifs (analyzeZScore.py and printGraphs.py).
+Contains the source code as found @[S. Mohammadi github](https://github.com/shmohammadi86/Kavosh). This is an exact motif counting algorithm as seen in this [paper](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-318). In addition, it contains a wrapper.py file containing the commands to execute the algorithm and finally show the discovered motifs (analyzeZScore.py and printGraphs.py).
 
 ## visualization
 Contains visualization of the graphs, using python libraries (networkx) and graphviz (dot) as rendenring tools.
