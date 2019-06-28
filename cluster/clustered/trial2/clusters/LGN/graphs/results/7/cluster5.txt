@@ -1,0 +1,36 @@
+gtrieScanner Results
+------------------------------------------
+General Information
+
+Start of Computation: 17h26m56s 29/05/2019
+End of Computation: 17h26m56s 29/05/2019
+
+Subgraph Size: 7
+Graph File: "../clustered/trial1/clusters/LGN/graphs/color5.txt"
+Directed: YES
+Nr Nodes: 414
+Nr Edges: 7
+
+Method: ESU on original network
+Different Types of Subgraphs Found [Original Network]: 1
+Subgraph Occurrences Found [Original Network]: 1
+Time for computing census on original network: 0.000049s
+Average time for census on random network: 0.000000s
+
+Number of random networks: 0
+Random seed: 1559165216
+Exchanges per edge: 3
+Number of tries per exchange: 10
+------------------------------------------
+Motif Analysis Results
+
+Graph     Org_Freq |  Z-score |    Rnd_Avg +/-    Rnd_Dev
+
+0111111
+0000000
+0000000
+0000000
+0000000
+0000000
+0000000          1 |     0.00 |       0.00 +/-       0.00
+

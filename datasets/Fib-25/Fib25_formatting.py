@@ -21,16 +21,14 @@ def readFile(f):
     assert(n_edges>0)
     assert(n_nodes>0)
 
-    dot = Digraph()
 
     for x in f:
-        l = x.split(',')
+        l = x.split(sep=',')
         edges.append(map(int, l))
-        dot.edge(l[1], l[0])
 
     assert(n_edges==len(edges))
 
-    return dot, edges, n_nodes, n_edges
+    return edges, n_nodes, n_edges
 
 
 def pruneGraph(df, n):
@@ -48,45 +46,66 @@ def pruneGraph(df, n):
     sub_df = df.sort_values(by=['pre_id','post_id'], axis=0)
     return sub_df.iloc[:n]
 
-def writeKavoshFile(fname, df, n_nodes, threshold=0):
-    '''Function to write the edge list in a txt file in such format as it is readable for Kavosh algorithm.
-    ARGS :
-        - fname : filename to save the data in.
-        - df : pandas DataFrame containing the edge list and optionally the weights.
-        - n_nodes : Number of nodes in the graph.
-        - threshold : weight threshold to consider an edge as existing, if weight is lower or equal the edge is discarded.
-    '''
+def writeFiles(df):
+    '''Write the dataset to text file for different algorithms.'''
 
-    ## There seems to be self looped edges.
-    # print(df[df.pre_id==df.post_id])
-    ## Remove self looped edges.
+    ## Write Kavosh
+    f = open('../../Kavosh/networks/Fib-25.txt', 'w')
+    f2 = open('../../gtrieScanner/datasets/Fib-25.txt', 'w')
+    f3 = open('Fib-25.txt', 'w')
+    f4 = open('Fib-25_weighted.txt', 'w')
+
+    f.write('{}\n'.format(max(df['pre_id'].max(), df['post_id'].max())))
+    for ix in df.index:
+        f.write('{}\t{}\n'.format(df.loc[ix, 'pre_id'], df.loc[ix, 'post_id']))
+        f2.write('{}\t{}\n'.format(df.loc[ix, 'pre_id'], df.loc[ix, 'post_id']))
+        f3.write('{}\t{}\n'.format(df.loc[ix, 'pre_id'], df.loc[ix, 'post_id']))
+        f4.write('{}\t{}\t{}\n'.format(df.loc[ix, 'pre_id'], df.loc[ix, 'post_id'], df.loc[ix, 'n_edge']))
+    f.close()
+    f2.close()
+    f3.close()
+    f4.close()
+
+
+def processDataFrame(df, threshold=0):
+    '''Remove unecessary nodes, add weights and reindex nodes.'''
+
+    ## Remove self looped edges
     df = df[df.pre_id!=df.post_id]
+
+    ## apply threshold for weights
+    if threshold>0:
+        df = df[df.n_edge>threshold]
 
     ## Some neurons do not have edges. We need to remove their IDs and reset the IDs.
     unique_list = list(set(df.pre_id.unique()).union(set(df.post_id.unique()) - set(df.pre_id.unique())))
     new_ID = dict(zip(unique_list, [i for i in range(1,len(unique_list)+1)]))
     df.pre_id = df.pre_id.map(new_ID)
     df.post_id = df.post_id.map(new_ID)
+    print('Number of nodes : {}'.format(len(unique_list)))
+    print('Number of unique edges : {}'.format(len(df)))
+    print('Total number of edges : {}'.format(df.n_edge.sum()))
+    print('Max weight in edges : {}\nAverage weight : {}'.format(df.n_edge.max(), df.n_edge.mean()))
 
     ## sort nodes
     df = df.sort_values(by=['pre_id','post_id'], axis=0)
 
-    ## apply threshold for weights
-    if threshold>0:
-        df = df.where(df.n_edge>threshold)
+    return df
 
-    ## check if file exists
-    if os.path.isfile('../../Kavosh/networks/'+fname):
-        os.system('rm ../../Kavosh/networks/'+fname)
+def plotGraph(df, sub_graph_viz_size):
 
-    ## write to file
-    f = open('../../Kavosh/networks/'+fname, 'wb')
-    f.write(str(len(unique_list))+'\n')
-    for ix in df.index:
-        f.write(str(df.loc[ix, 'pre_id'])+' '+str(df.loc[ix, 'post_id'])+'\n')
-
-    ## close file
-    f.close()
+    dot = Digraph()
+    if sub_graph_viz_size==0 and len(df)<500:
+        for ix in df.index:
+            dot.edge(str(df.loc[ix,'pre_id']), str(df.loc[ix,'post_id']))
+        dot.render(filename='../../visualization/Fib-25/Fib-25.pdf')
+    elif sub_graph_viz_size==0 and len(df)>=500:
+        print('Graph too big for rendering.')
+    else:
+        sub_df = pruneGraph(df, sub_graph_viz_size)
+        for ix in sub_df.index:
+            dot.edge(str(sub_df.loc[ix,'pre_id']), str(sub_df.loc[ix,'post_id']))
+        dot.render(filename='../../visualization/Fib-25/Fib-25_sub_'+str(sub_graph_viz_size)+'.pdf')
 
 def main(visualize=False, sub_graph_viz_size=100, threshold=0):
     '''Main function of this module. Module is used to format and visualize the Fib-25 graph dataset.
@@ -102,9 +121,11 @@ def main(visualize=False, sub_graph_viz_size=100, threshold=0):
         raise IOError('Please go to \'{}\'. You\'re current working directory is \'{}\'.'.format(target_cwd, cwd))
 
     ## open the raw file.
-    f = open('Fib25.txt', 'rb')
+    f = open('Fib25.txt', 'r')
 
-    dot, edge_list, n_nodes, n_edges = readFile(f)
+    edge_list, n_nodes, n_edges = readFile(f)
+
+    print('Number of segments initially: {}'.format(n_nodes))
 
     ## close raw file.
     f.close()
@@ -114,24 +135,21 @@ def main(visualize=False, sub_graph_viz_size=100, threshold=0):
     ## Save as a pickle file.
     df_edges.to_pickle('Fib-25.p')
 
-    ## render the graphs
-    if visualize:
-        if sub_graph_viz_size==0 and n_edges<250:
-            dot.render(filename='../../visualization/'+l[-1])
-        elif sub_graph_viz_size==0 and n_edges>=250:
-            print('Graph too big for rendering.')
-        else:
-            sub_df = pruneGraph(df_edges, sub_graph_viz_size)
-            sub_dot = Digraph()
-            for x in sub_df.values:
-                sub_dot.edge(str(x['pre_id']), str(x['post_id']))
-            sub_dot.render(filename='../../visualization/'+l[-1]+'_sub_'+str(sub_graph_viz_size))
+    print('Total number of edges: {}'.format(df_edges.n_edge.sum()))
+    print('Total number of unique edges: {}'.format(len(df_edges)))
+    print('\n')
 
     ## Format for Kavosh
-    writeKavoshFile(l[-1], df_edges, n_nodes)
+    df = processDataFrame(df_edges, threshold)
 
+    ## Render the graph
+    if visualize:
+        plotGraph(df, sub_graph_viz_size)
+
+    ## Format for GtrieScanner
+    writeFiles(df)
 
 if __name__=="__main__":
     print('Formatting Fib-25 dataset.')
-    main(visualize=False, sub_graph_viz_size=100, threshold=0)
+    main(visualize=True, sub_graph_viz_size=0, threshold=10)
     print('Done formatting.')
