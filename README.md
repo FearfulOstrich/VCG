@@ -14,10 +14,18 @@ Subfolders usually contain formatting python files to pre-process the data.
 
 
 ## Literature
-Features the different relevant literature that I have based myself on, from algorithms to related works.
+Features the different relevant literature that I have based myself on.
 
 ## Kavosh
 Contains the source code as found @[S. Mohammadi github](https://github.com/shmohammadi86/Kavosh). This is an exact motif counting algorithm as seen in this [paper](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-318). In addition, it contains a wrapper.py file containing the commands to execute the algorithm and finally show the discovered motifs (analyzeZScore.py and printGraphs.py).
+To run use: "./Kavosh" with following options: "-s [motifSize]"/"-i [inputFile]"/"-o [outputFile]"/"-r [NumRandomGraphs]"
+In my experience, Kavosh gives bad results for motifs statistics but is faster on enumeration of large subgraphs. Good to use if you already have determined random graphs for large subgraph enumeration. 
 
-## visualization
-Contains visualization of the graphs, using python libraries (networkx) and graphviz (dot) as rendenring tools.
+
+## gtrieScanner
+Contains the source code found @[here](http://www.dcc.fc.up.pt/gtries/#src). Folder datasets contains the txt file for the input edge list. 
+To run the code see documentation @[here](http://www.dcc.fc.up.pt/gtries/#manual).
+In my experience, this is the algorithm to use if you haven't generated random networks and you want to let the algo generate them.
+
+## cluster
+This folder contains the codes I have used on our proposal more details on the in-folder readme.
