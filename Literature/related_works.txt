@@ -1,0 +1,32 @@
+y, Practical graph isomorphism, Congressus Numerantium, 30 (1981) 45–87. Available at http://cs.anu.edu.au/∼bdm/nauty/PGI.
+
+[2] B. D. McKay and A. Piperno, Practical Graph Isomorphism, II, J. Symbolic Computation (2013) 60 94-112. http://dx.doi.org/10.1016/j.jsc.2013.09.003.
+
+[3] Duke, R., Lefmann, H. and Rödl, V. (1995). A fast approximation algorithm for computing the frequencies of subgraphs in a given graph. SIAM Journal on Computing 24(3): 598-620. (early motif discovery algo)
+
+[4] Masoudi-Nejad A, Schreiber F, Kashani ZR: Building blocks of biological networks: a review on major network motif discovery algorithms. IET Syst Biol. 2012, 6 (5): 164-174. 10.1049/iet-syb.2011.0011. (review)
+
+[5] Milo, R. et al. Network motifs: simple building blocks of complex networks. Science 298, 824–827 (2002).
+
+[6] Kashtan, N., Itzkovitz, S., Milo, R. & Alon, U. Efficient sampling algorithm for estimating subgraph concentrations and detecting network motifs. Bioinformatics 20, 1746–1758 (2004).
+
+[7] Wernicke, S.: ‘Efficient detection of network motifs’, IEEE/ACM Trans. Comput. Biol. Bioinf., 2006, 3, (4), pp. 347–359
+
+[8] Kashani, Z.R., Ahrabian, H., Elahi, E., et al.: ‘Kavosh: a new algorithm for finding network motifs’, BMC Bioinf., 2009, 10, p. 318
+
+[9] Ribeiro, P., Silva, F.: ‘G-tries: an efficient data structure for discovering network motifs’. ACM, 2010
+
+[10] Keuper M., Levinkov E., Bonneel N., Lavoué G., Brox T. and Andres B. Efficient Decomposition of Image and Mesh Graphs by Lifted Multicuts. Int. Conf. on Computer Vision (ICCV) 2015
+
+[11] O. Sporns, R. Kötter
+PLOs Biol., 2 (2004), p. 1910
+
+[12] Daniel Haehn, John Hoffer, Brian Matejek, Adi Suissa-Peleg, Ali K. Al-Awami, Lee Kamentsky, Felix Gonda, Eagon Meng, William Zhang, Richard Schalek, Alyssa Wilson, Toufiq Parag, Johanna Beyer, Verena Kaynig, Thouis R. Jones, James Tompkin, Markus Hadwiger, Jeff W. Lichtman, and Hanspeter Pfister. Scalable interactive visualization for connectomics. Informatics, 4(3):29, 2017.
+
+- Mitchell, Inside the moonshot effort to finally figure out the brain, MIT technology review, Oct. 12 2017
+
+Morgan, J. L., Berger, D. R., Wetzel, A. W., and Lichtman, J. W. (2016). The fuzzy logic of network connectivity in mouse visual thalamus. Cell 165, 192–206. doi: 10.1016/j.cell.2016.02.033 (LGN network)
+J. Leskovec, J. Kleinberg and C. Faloutsos. Graph Evolution: Densification and Shrinking Diameters. ACM Transactions on Knowledge Discovery from Data (ACM TKDD), 1(1), 2007. (email network)
+Takemura SY, Xu CS, Lu Z, Rivlin PK, Parag T, Olbris DJ, Plaza S, Zhao T, Katz WT, Umayam L, Weaver C, Hess HF, Horne JA, Nunez-Iglesias J, Aniceto R, Chang LA, Lauchie S, Nasca A, Ogundeyi O, Sigmund C, et al. 2015. Synaptic circuits and their variations within different columns in the visual system of Drosophila. PNAS 112:13711–13716. doi: 10.1073/pnas.1509820112, PMID: 26483464 (Fib-25 network)
+
+
